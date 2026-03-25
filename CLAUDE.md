@@ -52,12 +52,20 @@ server {
 - 불필요한 포트 외부 노출 금지
 - DB 접속 정보 하드코딩 금지
 
+## 배포
+
+- **방식**: GitHub Actions (Self-Hosted Runner) → main push 시 자동 배포
+- **워크플로우**: `.github/workflows/deploy.yml`
+- **Runner**: `agentbot-prod` (라벨: `self-hosted, production`)
+
 ## 설치 체크리스트
 
-- [ ] 서버 초기화 (Ubuntu 22.04 재설치)
-- [ ] Docker 설치
-- [ ] OpenHands 컨테이너 실행
-- [ ] Nginx 리버스 프록시 + htpasswd 인증 설정
-- [ ] 도메인 접근 차단 설정
+- [x] 서버 초기화 (Ubuntu 22.04 재설치)
+- [x] Docker 설치
+- [x] OpenHands 컨테이너 실행
+- [x] Nginx 리버스 프록시 + htpasswd 인증 설정
+- [x] 도메인 접근 차단 설정
 - [ ] Self-Hosted Runner 설치
-- [ ] Gemini API 키 등록
+- [ ] GitHub 연동 (OpenHands WebUI)
+- [x] Gemini API 키 등록
+- [x] Anthropic API 키 등록
