@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  openhands:
+    image: ghcr.io/all-hands-ai/openhands:main
+    container_name: openhands
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - LLM_API_KEY=${GEMINI_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-gemini/gemini-2.5-pro}
+      - WORKSPACE_MOUNT_PATH=/opt/workspace
+    volumes:
+      - /opt/workspace:/opt/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
