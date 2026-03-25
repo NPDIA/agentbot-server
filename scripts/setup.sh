@@ -11,11 +11,11 @@ apt-get update && apt-get upgrade -y
 echo "[2/6] Docker 설치..."
 if ! command -v docker &> /dev/null; then
     curl -fsSL https://get.docker.com | sh
-    systemctl enable --now docker
     echo "Docker 설치 완료"
 else
     echo "Docker 이미 설치됨"
 fi
+systemctl enable --now docker
 
 # Docker Compose plugin 확인
 if ! docker compose version &> /dev/null; then
