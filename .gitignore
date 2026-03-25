@@ -1,0 +1,6 @@
+# 환경 변수 (API 키 포함)
+.env
+
+# OS
+.DS_Store
+Thumbs.db
