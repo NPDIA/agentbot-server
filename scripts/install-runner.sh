@@ -25,6 +25,10 @@ if ! id "$RUNNER_USER" &>/dev/null; then
     echo "runner 사용자 생성 완료"
 fi
 
+# runner 사용자 sudo 권한 부여 (deploy 워크플로우에서 필요)
+echo "$RUNNER_USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/"$RUNNER_USER"
+chmod 440 /etc/sudoers.d/"$RUNNER_USER"
+
 # 2. Runner 다운로드
 mkdir -p "$RUNNER_DIR"
 cd "$RUNNER_DIR"
