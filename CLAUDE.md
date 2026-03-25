@@ -54,9 +54,27 @@ server {
 
 ## 배포
 
-- **방식**: GitHub Actions (Self-Hosted Runner) → main push 시 자동 배포
-- **워크플로우**: `.github/workflows/deploy.yml`
-- **Runner**: `agentbot-prod` (라벨: `self-hosted, production`)
+- **방식**: GitHub Actions (Self-Hosted Runner, Org 레벨) → main push 시 자동 배포
+- **Runner**: `agentbot-prod` (라벨: `self-hosted, linux, x64, production`)
+- **대상 레포**:
+
+| Repo | CI | CD | 비고 |
+|------|----|----|------|
+| agentbot-server | - | deploy.yml | OpenHands 서버 관리 |
+| mineral-community | ci.yml | cd.yml, cd-dev.yml, cd-staging.yml | 커뮤니티 플랫폼 |
+| final_bot-upgraded | ci.yml | cd.yml | AI 자동 투자 봇 (Python/Flask) |
+| lampad-qc-automator | ci.yml | cd.yml | QC 자동화 |
+
+### Self-Hosted Runner 전환 가이드
+
+기존 워크플로우에서 `runs-on` 변경:
+```yaml
+# Before (GitHub-hosted)
+runs-on: ubuntu-latest
+
+# After (Self-hosted)
+runs-on: [self-hosted, production]
+```
 
 ## 설치 체크리스트
 
@@ -65,7 +83,10 @@ server {
 - [x] OpenHands 컨테이너 실행
 - [x] Nginx 리버스 프록시 + htpasswd 인증 설정
 - [x] 도메인 접근 차단 설정
-- [ ] Self-Hosted Runner 설치
+- [x] Self-Hosted Runner 설치 (repo 레벨)
+- [ ] Self-Hosted Runner → Org 레벨 전환
 - [ ] GitHub 연동 (OpenHands WebUI)
+- [ ] 각 repo 워크플로우 runs-on 전환
+- [ ] final_bot-upgraded CD 워크플로우 추가
 - [x] Gemini API 키 등록
 - [x] Anthropic API 키 등록
